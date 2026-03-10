@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IronGate Global Technologies</title>
+  <style>
+    :root{
+      --bg:#08111c;
+      --bg2:#0e1a2a;
+      --panel:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.12);
+      --text:#eef4fb;
+      --muted:#aebed0;
+      --primary:#2a7fff;
+      --primary2:#69a9ff;
+      --accent:#22d3ee;
+      --shadow:0 22px 55px rgba(0,0,0,.35);
+      --radius:24px;
+      --max:1220px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,Arial,Helvetica,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 85% 10%, rgba(42,127,255,.18), transparent 22%),
+        radial-gradient(circle at 8% 30%, rgba(34,211,238,.10), transparent 20%),
+        linear-gradient(180deg,var(--bg) 0%, var(--bg2) 45%, var(--bg) 100%);
+    }
+    a{text-decoration:none;color:inherit}
+    .container{width:min(calc(100% - 32px), var(--max));margin:0 auto}
+    .section{padding:84px 0}
+    h1,h2,h3,h4{margin:0 0 14px;line-height:1.04}
+    h1{font-size:clamp(42px,7vw,78px);letter-spacing:-.05em}
+    h2{font-size:clamp(30px,5vw,52px);letter-spacing:-.04em}
+    h3{font-size:24px}
+    h4{font-size:18px}
+    p{margin:0;color:var(--muted);line-height:1.8}
+    ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.85}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:8px 14px;border-radius:999px;
+      border:1px solid rgba(105,169,255,.28);
+      background:rgba(42,127,255,.08);color:var(--primary2);
+      font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase
+    }
+    .eyebrow:before{
+      content:"";width:8px;height:8px;border-radius:50%;
+      background:linear-gradient(180deg,var(--accent),var(--primary));
+      box-shadow:0 0 16px rgba(34,211,238,.55)
+    }
+    .nav{position:sticky;top:0;z-index:50;background:rgba(7,14,24,.76);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav-inner{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:14px;font-weight:800}
+    .logo-wrap{display:flex;align-items:center;gap:12px}
+    .logo-mark{
+      width:54px;height:54px;border-radius:16px;position:relative;overflow:hidden;
+      background:linear-gradient(180deg, rgba(105,169,255,.18), rgba(34,211,238,.08));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 10px 26px rgba(0,0,0,.3)
+    }
+    .logo-mark:before{
+      content:"";position:absolute;inset:9px;
+      border:2px solid #dbeafe;border-bottom-width:4px;
+      clip-path:polygon(50% 0,100% 20%,85% 100%,15% 100%,0 20%)
+    }
+    .logo-mark:after{
+      content:"";position:absolute;left:20px;top:14px;width:12px;height:18px;
+      border:2px solid #dbeafe;border-bottom:none;border-radius:8px 8px 0 0
+    }
+    .brand-text strong{display:block;font-size:20px;letter-spacing:-.02em}
+    .brand-text span{font-size:11px;color:var(--primary2);letter-spacing:.20em;text-transform:uppercase}
+    .nav-links{display:flex;align-items:center;gap:22px;color:#dce7f4;font-size:15px;flex-wrap:wrap}
+    .nav-links a:hover{color:#fff}
+    .btns{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 18px;border-radius:14px;font-weight:800;border:1px solid transparent;transition:.2s ease;cursor:pointer}
+    .btn-primary{color:#fff;background:linear-gradient(180deg,var(--primary2),var(--primary));box-shadow:0 16px 34px rgba(42,127,255,.33)}
+    .btn-secondary{color:var(--text);background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.12)}
+    .btn:hover{transform:translateY(-1px)}
+    .hero{padding:76px 0 56px}
+    .hero-grid,.split,.grid-2,.grid-3,.vendor-grid,.metrics-grid,.pricing-grid{display:grid;gap:22px}
+    .hero-grid,.split,.grid-2{grid-template-columns:1fr 1fr}
+    .grid-3,.metrics-grid{grid-template-columns:repeat(3,1fr)}
+    .vendor-grid{grid-template-columns:repeat(5,1fr)}
+    .pricing-grid{grid-template-columns:repeat(3,1fr)}
+    .hero-copy p{font-size:18px;max-width:62ch}
+    .hero-copy .btns{margin-top:28px}
+    .stats{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .stat,.card,.vendor-card,.metric-card,.price-card,.cta,.catalog-card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);box-shadow:var(--shadow)
+    }
+    .stat,.card,.vendor-card,.metric-card,.price-card,.catalog-card{padding:24px}
+    .stat strong,.metric-card strong{display:block;font-size:30px;margin-bottom:6px}
+    .hero-visual svg,.vendor-art,.catalog-art,.gov-art{
+      width:100%;height:auto;display:block;border-radius:30px;border:1px solid rgba(255,255,255,.1);box-shadow:var(--shadow)
+    }
+    .icon{
+      width:56px;height:56px;border-radius:16px;display:grid;place-items:center;
+      background:linear-gradient(180deg, rgba(105,169,255,.18), rgba(34,211,238,.08));
+      border:1px solid rgba(255,255,255,.08);font-weight:800;color:var(--primary2);margin-bottom:16px
+    }
+    .vendor-card{text-align:center}
+    .vendor-card .vendor-art{margin-bottom:14px}
+    .badge-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+    .badge{padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:#dfe9f5;font-weight:700}
+    details{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:0;overflow:hidden}
+    details+details{margin-top:14px}
+    summary{list-style:none;cursor:pointer;padding:18px 20px;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    summary::-webkit-details-marker{display:none}
+    summary:after{content:"+";width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:rgba(42,127,255,.14);color:var(--primary2);font-size:22px;font-weight:500;flex:0 0 auto}
+    details[open] summary:after{content:"−"}
+    .dropdown-body{padding:0 20px 20px 20px;border-top:1px solid rgba(255,255,255,.07)}
+    .subgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:18px}
+    .subcard{padding:18px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)}
+    .cta{padding:30px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .cta p{max-width:58ch}
+    form{display:grid;gap:14px}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    input,textarea,select{width:100%;padding:14px 15px;border-radius:14px;outline:none;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:var(--text);font:inherit}
+    textarea{min-height:140px;resize:vertical}
+    .footer{padding:28px 0 46px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+    .footer-inner{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    @media (max-width:980px){
+      .hero-grid,.split,.grid-2,.grid-3,.vendor-grid,.metrics-grid,.pricing-grid,.stats,.field-row,.subgrid{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand" aria-label="IronGate Global Technologies home">
+        <div class="logo-wrap">
+          <div class="logo-mark"></div>
+          <div class="brand-text">
+            <strong>IRONGATE</strong>
+            <span>Global Technologies</span>
+          </div>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#vendors">Vendors</a>
+        <a href="#catalog">Catalog</a>
+        <a href="#government">Government</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="btn btn-primary" href="#contact">Request a Quote</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Enterprise IT Equipment + Contract Services</span>
+          <h1>Professional reseller website for IronGate Global Technologies.</h1>
+          <p>Built as a polished, self-contained single-file site with vendor sections, product catalog structure, government contracting content, quote capture, and a portable design you can publish directly to GitHub Pages.</p>
+          <div class="btns">
+            <a class="btn btn-primary" href="#catalog">Explore Product Catalog</a>
+            <a class="btn btn-secondary" href="#government">Government Contracting</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><strong>5</strong><span>Featured vendor lines</span></div>
+            <div class="stat"><strong>4</strong><span>Core product categories</span></div>
+            <div class="stat"><strong>1</strong><span>Single self-contained file</span></div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <svg viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" aria-label="Dashboard illustration">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#16263f"/><stop offset="100%" stop-color="#0e1a2a"/></linearGradient>
+              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#2a7fff"/></linearGradient>
+            </defs>
+            <rect width="900" height="560" rx="28" fill="#0b1320"/>
+            <circle cx="760" cy="60" r="140" fill="rgba(42,127,255,.18)"/>
+            <rect x="60" y="60" width="780" height="440" rx="28" fill="url(#g1)" stroke="rgba(255,255,255,.1)"/>
+            <rect x="90" y="92" width="720" height="42" rx="14" fill="#162437"/>
+            <circle cx="116" cy="113" r="6" fill="#fb923c"/><circle cx="138" cy="113" r="6" fill="#facc15"/><circle cx="160" cy="113" r="6" fill="#4ade80"/>
+            <rect x="100" y="170" width="170" height="250" rx="22" fill="#142235"/>
+            <rect x="125" y="200" width="120" height="34" rx="10" fill="#203552"/>
+            <rect x="125" y="252" width="120" height="34" rx="10" fill="#182943"/>
+            <rect x="125" y="304" width="120" height="34" rx="10" fill="#182943"/>
+            <rect x="125" y="356" width="120" height="34" rx="10" fill="#182943"/>
+            <rect x="310" y="170" width="150" height="96" rx="18" fill="#142235"/><rect x="480" y="170" width="150" height="96" rx="18" fill="#142235"/><rect x="650" y="170" width="150" height="96" rx="18" fill="#142235"/>
+            <text x="332" y="206" fill="#eef4fb" font-size="18" font-family="Arial" font-weight="700">Hardware</text>
+            <text x="500" y="206" fill="#eef4fb" font-size="18" font-family="Arial" font-weight="700">Services</text>
+            <text x="682" y="206" fill="#eef4fb" font-size="18" font-family="Arial" font-weight="700">Public Sector</text>
+            <rect x="310" y="305" width="490" height="18" rx="9" fill="#1b2c45"/><rect x="310" y="305" width="380" height="18" rx="9" fill="url(#g2)"/>
+            <rect x="310" y="347" width="490" height="18" rx="9" fill="#1b2c45"/><rect x="310" y="347" width="300" height="18" rx="9" fill="url(#g2)"/>
+            <rect x="310" y="389" width="490" height="18" rx="9" fill="#1b2c45"/><rect x="310" y="389" width="430" height="18" rx="9" fill="url(#g2)"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container metrics-grid">
+        <article class="metric-card"><strong>Hardware</strong><p>Enterprise IT equipment sales for core business systems and end-user fleets.</p></article>
+        <article class="metric-card"><strong>Services</strong><p>Infrastructure deployment, installations, procurement, and consulting.</p></article>
+        <article class="metric-card"><strong>Public Sector</strong><p>Dedicated government section for procurement readiness and capability messaging.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="vendors">
+      <div class="container">
+        <span class="eyebrow">Preferred Vendor Lines</span>
+        <h2>Featured vendor section.</h2>
+        <p>These cards are built directly into the page, so there are no separate image files to manage.</p>
+        <div class="vendor-grid" style="margin-top:22px;">
+          <article class="vendor-card">
+            <svg class="vendor-art" viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="240" rx="24" fill="#101b2c"/><circle cx="340" cy="30" r="90" fill="rgba(29,78,216,.25)"/><rect x="36" y="46" width="348" height="120" rx="20" fill="#17263c" stroke="rgba(255,255,255,.1)"/><text x="210" y="120" text-anchor="middle" fill="#eef4fb" font-size="44" font-family="Arial" font-weight="700">DELL</text></svg>
+            <h4>Dell Technologies</h4><p>Servers, endpoints, and enterprise infrastructure.</p>
+          </article>
+          <article class="vendor-card">
+            <svg class="vendor-art" viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="240" rx="24" fill="#101b2c"/><circle cx="340" cy="30" r="90" fill="rgba(16,185,129,.25)"/><rect x="36" y="46" width="348" height="120" rx="20" fill="#17263c" stroke="rgba(255,255,255,.1)"/><text x="210" y="120" text-anchor="middle" fill="#eef4fb" font-size="44" font-family="Arial" font-weight="700">HPE</text></svg>
+            <h4>HPE</h4><p>Compute, storage, and hybrid infrastructure platforms.</p>
+          </article>
+          <article class="vendor-card">
+            <svg class="vendor-art" viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="240" rx="24" fill="#101b2c"/><circle cx="340" cy="30" r="90" fill="rgba(34,148,255,.25)"/><rect x="36" y="46" width="348" height="120" rx="20" fill="#17263c" stroke="rgba(255,255,255,.1)"/><text x="210" y="120" text-anchor="middle" fill="#eef4fb" font-size="42" font-family="Arial" font-weight="700">CISCO</text></svg>
+            <h4>Cisco</h4><p>Switching, routing, security, and collaboration environments.</p>
+          </article>
+          <article class="vendor-card">
+            <svg class="vendor-art" viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="240" rx="24" fill="#101b2c"/><circle cx="340" cy="30" r="90" fill="rgba(220,38,38,.25)"/><rect x="36" y="46" width="348" height="120" rx="20" fill="#17263c" stroke="rgba(255,255,255,.1)"/><text x="210" y="120" text-anchor="middle" fill="#eef4fb" font-size="34" font-family="Arial" font-weight="700">FORTINET</text></svg>
+            <h4>Fortinet</h4><p>Firewalls, secure networking, and perimeter protection.</p>
+          </article>
+          <article class="vendor-card">
+            <svg class="vendor-art" viewBox="0 0 420 240" xmlns="http://www.w3.org/2000/svg"><rect width="420" height="240" rx="24" fill="#101b2c"/><circle cx="340" cy="30" r="90" fill="rgba(220,38,127,.25)"/><rect x="36" y="46" width="348" height="120" rx="20" fill="#17263c" stroke="rgba(255,255,255,.1)"/><text x="210" y="120" text-anchor="middle" fill="#eef4fb" font-size="36" font-family="Arial" font-weight="700">LENOVO</text></svg>
+            <h4>Lenovo</h4><p>Workstations, business laptops, and end-user fleets.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="catalog">
+      <div class="container">
+        <span class="eyebrow">Product Catalog</span>
+        <h2>Core product categories with expandable detail.</h2>
+        <p>Use these dropdown sections as the foundation for a future searchable catalog, RFQ flow, or vendor-specific landing pages.</p>
+        <div style="margin-top:22px;">
+          <details open>
+            <summary>Enterprise Hardware</summary>
+            <div class="dropdown-body">
+              <div class="subgrid">
+                <div class="subcard"><h4>Products</h4><ul><li>Dell / HPE servers</li><li>Lenovo workstations</li><li>Enterprise laptops</li><li>NAS / SAN storage</li></ul></div>
+                <div class="subcard"><h4>Use Cases</h4><ul><li>Server refresh cycles</li><li>Virtualization and storage expansion</li><li>Office and enterprise end-user deployments</li></ul></div>
+              </div>
+            </div>
+          </details>
+          <details>
+            <summary>Networking</summary>
+            <div class="dropdown-body">
+              <div class="subgrid">
+                <div class="subcard"><h4>Products</h4><ul><li>Cisco switches</li><li>Fortinet firewalls</li><li>Ubiquiti / Aruba wireless</li><li>Enterprise routing equipment</li></ul></div>
+                <div class="subcard"><h4>Use Cases</h4><ul><li>Network modernization</li><li>Security perimeter upgrades</li><li>Wireless rollout and branch connectivity</li></ul></div>
+              </div>
+            </div>
+          </details>
+          <details>
+            <summary>Infrastructure</summary>
+            <div class="dropdown-body">
+              <div class="subgrid">
+                <div class="subcard"><h4>Products</h4><ul><li>Server racks</li><li>UPS systems</li><li>Patch panels</li><li>Fiber and structured cabling</li></ul></div>
+                <div class="subcard"><h4>Use Cases</h4><ul><li>Closet and data room buildouts</li><li>Power continuity planning</li><li>Structured cabling and physical infrastructure readiness</li></ul></div>
+              </div>
+            </div>
+          </details>
+          <details>
+            <summary>Endpoints</summary>
+            <div class="dropdown-body">
+              <div class="subgrid">
+                <div class="subcard"><h4>Products</h4><ul><li>Business desktops</li><li>Laptops</li><li>Monitors</li><li>Peripherals</li></ul></div>
+                <div class="subcard"><h4>Use Cases</h4><ul><li>Employee onboarding kits</li><li>Standardized endpoint refreshes</li><li>Remote and hybrid workforce support</li></ul></div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="government">
+      <div class="container split">
+        <div>
+          <span class="eyebrow">Government Contracting</span>
+          <h2>Built for public sector procurement readiness.</h2>
+          <p>A dedicated section for capability messaging, registrations, and public-sector positioning.</p>
+          <div class="grid-3" style="margin-top:22px;">
+            <article class="card"><h3>Capabilities</h3><ul><li>Enterprise hardware sourcing</li><li>Networking and security infrastructure</li><li>Data center and physical infrastructure</li><li>Deployment support and project coordination</li></ul></article>
+            <article class="card"><h3>Procurement Readiness</h3><ul><li>SAM registration placeholder</li><li>CAGE code placeholder</li><li>UEI placeholder</li><li>State and local purchasing support</li></ul></article>
+            <article class="card"><h3>Target Agencies</h3><ul><li>Federal departments</li><li>State and local government</li><li>Education institutions</li><li>Healthcare and public sector entities</li></ul></article>
+          </div>
+        </div>
+        <div class="image-card">
+          <svg class="gov-art" viewBox="0 0 700 520" xmlns="http://www.w3.org/2000/svg" aria-label="Government contracting illustration">
+            <rect width="700" height="520" rx="30" fill="#0b1320"/>
+            <circle cx="590" cy="60" r="120" fill="rgba(42,127,255,.18)"/>
+            <rect x="60" y="70" width="580" height="380" rx="28" fill="#142235" stroke="rgba(255,255,255,.1)"/>
+            <text x="90" y="130" fill="#eef4fb" font-size="36" font-family="Arial" font-weight="700">Government Contracting</text>
+            <rect x="100" y="190" width="140" height="110" rx="18" fill="#1a2c46"/><rect x="280" y="190" width="140" height="110" rx="18" fill="#1a2c46"/><rect x="460" y="190" width="140" height="110" rx="18" fill="#1a2c46"/>
+            <text x="145" y="255" fill="#eef4fb" font-size="26" font-family="Arial" font-weight="700">SAM</text>
+            <text x="318" y="255" fill="#eef4fb" font-size="26" font-family="Arial" font-weight="700">CAGE</text>
+            <text x="509" y="255" fill="#eef4fb" font-size="26" font-family="Arial" font-weight="700">UEI</text>
+            <rect x="100" y="340" width="500" height="18" rx="9" fill="#1b2c45"/><rect x="100" y="340" width="380" height="18" rx="9" fill="#2a7fff"/>
+            <rect x="100" y="380" width="500" height="18" rx="9" fill="#1b2c45"/><rect x="100" y="380" width="280" height="18" rx="9" fill="#22d3ee"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container pricing-grid">
+        <article class="price-card"><h3>Standard Office Refresh</h3><ul><li>Business laptops</li><li>Monitors + docks</li><li>Peripheral bundle</li><li>Deployment-ready sourcing</li></ul></article>
+        <article class="price-card"><h3>Network Modernization</h3><ul><li>Switching refresh</li><li>Firewall upgrade</li><li>Wireless deployment</li><li>Rack + cabling options</li></ul></article>
+        <article class="price-card"><h3>Server + Storage Bundle</h3><ul><li>Rack server options</li><li>Backup hardware</li><li>NAS / SAN storage</li><li>Procurement consulting</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container cta">
+        <div>
+          <span class="eyebrow">Contact</span>
+          <h2 style="margin-top:14px;">Request a quote or partnership discussion.</h2>
+          <p>Use this site as your GitHub Pages launch version. Then expand it into a multi-page catalog, RFQ engine, or government capability site.</p>
+        </div>
+        <div class="btns">
+          <a class="btn btn-primary" href="mailto:sales@irongateglobaltech.com">Email Sales</a>
+          <a class="btn btn-secondary" href="#top">Back to Top</a>
+        </div>
+      </div>
+      <div class="container split" style="margin-top:22px;">
+        <div class="card">
+          <h3>Business Contact</h3>
+          <p><strong>Email:</strong> sales@irongateglobaltech.com</p>
+          <p><strong>Phone:</strong> (800) 555-0188</p>
+          <p><strong>Focus:</strong> Enterprise hardware, procurement support, contract technology services, and future managed services.</p>
+        </div>
+        <div class="card">
+          <form onsubmit="event.preventDefault(); alert('Demo only: connect this form to your CRM, inbox, or quote system.');">
+            <div class="field-row">
+              <input type="text" placeholder="Full Name" />
+              <input type="text" placeholder="Company Name" />
+            </div>
+            <div class="field-row">
+              <input type="email" placeholder="Business Email" />
+              <input type="tel" placeholder="Phone Number" />
+            </div>
+            <select>
+              <option selected>Select your interest</option>
+              <option>Enterprise IT Hardware Sales</option>
+              <option>Technology Procurement Services</option>
+              <option>Contract Technology Services</option>
+              <option>Managed Services (Future Expansion)</option>
+            </select>
+            <textarea placeholder="Tell us what you need, the quantity, the environment, or the project scope."></textarea>
+            <button class="btn btn-primary" type="submit">Submit Inquiry</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© 2026 IronGate Global Technologies. All rights reserved.</div>
+      <div>Enterprise hardware • Procurement • Contract services • Managed services roadmap</div>
+    </div>
+  </footer>
+</body>
+</html>
